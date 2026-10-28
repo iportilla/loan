@@ -11,6 +11,7 @@ library is already installed. This page is for working on your own laptop instea
 |---|---|---|
 | [`Loan-README.md`](./Loan-README.md) | Students | Step-by-step assignment guide |
 | [`loan-starter.ipynb`](./loan-starter.ipynb) | Students | Starter notebook with `# TODO` cells to fill in |
+| `data/` | Students | `train.csv`, `test.csv`, `sample_submission.csv` from the competition |
 | `requirements.txt`, `environment.yml` | Students | Local Python environment |
 
 ## Prerequisites
@@ -51,15 +52,23 @@ If the environment is not listed as a kernel, activate it and register it:
 python -m ipykernel install --user --name loan-3220 --display-name "Python (loan-3220)"
 ```
 
-## Add the Kaggle data
+## Get the files
 
-Join the competition, open the **Data** tab, and download `train.csv`,
-`test.csv`, and `sample_submission.csv`. Put all three files in this folder,
-next to the notebook. The notebook checks these locations, in order:
+Clone this repository (or click **Code → Download ZIP** on GitHub):
+
+```bash
+git clone https://github.com/iportilla/loan.git
+```
+
+The competition data is included in `data/`: `train.csv`, `test.csv`, and
+`sample_submission.csv`. The notebook looks for the data in these places, in
+order:
 
 1. `/kaggle/input/competitions/3220-loan-approval/` (inside a Kaggle notebook)
-2. The notebook's own folder
-3. The folder above it
+2. A `data/` folder next to the notebook (a clone of this repo)
+3. A `data/` folder one level up
+4. If none of those exist, it downloads the files from this repo on GitHub
+   (needs internet; this is what happens in Google Colab)
 
 It writes predictions to `submission.csv` in the notebook's folder. Upload
 that file on the competition page with **Submit Prediction**.

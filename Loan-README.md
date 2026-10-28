@@ -106,7 +106,7 @@ When one answer is much more common than the other, it's called **class imbalanc
 5. Upload `loan-starter.ipynb` (**File → Import Notebook**), or copy its cells in.
 6. In the right-hand **Input** panel, confirm the competition data is attached. The starter notebook looks for it at `/kaggle/input/competitions/3220-loan-approval/`. If your Input panel shows a different path, use that one.
 
-> 💡 **Prefer working on your laptop?** See `README.md` for local setup. Put `train.csv`, `test.csv`, and `sample_submission.csv` in the same folder as the notebook.
+> 💡 **Prefer working on your laptop or in Google Colab?** The data is also in the [class GitHub repo](https://github.com/iportilla/loan) under `data/`. Clone the repo (see `README.md`), or just open the notebook anywhere with internet access: it downloads the data from GitHub automatically when it can't find a local copy.
 
 ---
 
@@ -147,12 +147,14 @@ Before building anything, get to know the data. This is the pandas you already k
 import pandas as pd
 from pathlib import Path
 
-# Works on Kaggle and on your laptop
-candidates = [Path("/kaggle/input/competitions/3220-loan-approval"), Path("."), Path("..")]
-DATA_DIR = next(p for p in candidates if (p / "train.csv").exists())
+# Use a local copy if there is one, otherwise download from the class GitHub repo
+GITHUB_DATA = "https://raw.githubusercontent.com/iportilla/loan/main/data"
+candidates = [Path("/kaggle/input/competitions/3220-loan-approval"), Path("data"), Path("../data")]
 
-train = pd.read_csv(DATA_DIR / "train.csv")
-test  = pd.read_csv(DATA_DIR / "test.csv")
+DATA_DIR = next((p for p in candidates if (p / "train.csv").exists()), GITHUB_DATA)
+
+train = pd.read_csv(f"{DATA_DIR}/train.csv")
+test  = pd.read_csv(f"{DATA_DIR}/test.csv")
 
 train.head()
 ```
@@ -476,7 +478,7 @@ A **random forest** builds many decision trees and lets them vote. **Gradient bo
 
 | Error message (or symptom) | Likely cause | Fix |
 |---|---|---|
-| `FileNotFoundError` or `StopIteration` when loading | Data isn't where the notebook looks | Copy the exact path from Kaggle's **Input** panel, or put the CSVs next to the notebook |
+| `FileNotFoundError` or `HTTPError` when loading | No local copy, and no internet to download from GitHub | Turn on **Internet** in Kaggle's notebook settings, or clone the repo so `data/` sits next to the notebook |
 | `ValueError: could not convert string to float: 'B'` | Text column not converted | Map `loan_grade` and `cb_person_default_on_file` to numbers, or one-hot encode |
 | `ValueError: Input X contains NaN` | A `.map()` missed a category, creating blanks | Check `X.isna().sum()` and make sure your dictionary covers every category |
 | `KeyError` on a one-hot column in `test` | A category exists in train but not test | Use `X_test = X_test.reindex(columns=X.columns, fill_value=0)` |
