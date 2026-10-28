@@ -10,6 +10,7 @@ library is already installed. This page is for working on your own laptop instea
 | File | For | Purpose |
 |---|---|---|
 | [`Loan-README.md`](./Loan-README.md) | Students | Step-by-step assignment guide |
+| [`Loan-Assignment-Slides.pptx`](./Loan-Assignment-Slides.pptx) | Students | Slides introducing the assignment |
 | [`loan-starter.ipynb`](./loan-starter.ipynb) | Students | Starter notebook with `# TODO` cells to fill in |
 | `data/` | Students | `train.csv`, `test.csv`, `sample_submission.csv` from the competition |
 | `requirements.txt`, `environment.yml` | Students | Local Python environment |
