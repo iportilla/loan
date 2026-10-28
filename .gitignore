@@ -1,0 +1,7 @@
+train.csv
+test.csv
+sample_submission.csv
+submission.csv
+.ipynb_checkpoints/
+.DS_Store
+__pycache__/
